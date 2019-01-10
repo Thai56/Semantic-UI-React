@@ -135,12 +135,16 @@ export default class Popup extends Component {
 
     /** Element to be rendered within the confines of the viewport whenever possible. */
     keepInViewPort: PropTypes.bool,
+
+    /** Popup disabled */
+    disabled: PropTypes.bool,
   }
 
   static defaultProps = {
     position: 'top left',
     on: 'hover',
     keepInViewPort: true,
+    disabled: false,
   }
 
   static Content = PopupContent
@@ -283,6 +287,9 @@ export default class Popup extends Component {
 
   getPortalProps() {
     const portalProps = {}
+    if (this.props.disabled) {
+      return portalProps
+    }
 
     const { on, hoverable } = this.props
     const normalizedOn = _.isArray(on) ? on : [on]
